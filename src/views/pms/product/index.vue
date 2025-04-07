@@ -242,7 +242,6 @@
     updateRecommendStatus,
     updatePublishStatus
   } from '@/api/product'
-  import {fetchList as fetchSkuStockList,update as updateSkuStockList} from '@/api/skuStock'
   import {fetchList as fetchProductAttrList} from '@/api/productAttr'
   import {fetchList as fetchBrandList} from '@/api/brand'
   import {fetchListWithChildren} from '@/api/productCate'
@@ -394,50 +393,6 @@
           }
         });
       },
-      handleShowSkuEditDialog(index,row){
-        this.editSkuInfo.dialogVisible=true;
-        this.editSkuInfo.productId=row.id;
-        this.editSkuInfo.productSn=row.productSn;
-        this.editSkuInfo.productAttributeCategoryId = row.productAttributeCategoryId;
-        this.editSkuInfo.keyword=null;
-        fetchSkuStockList(row.id,{keyword:this.editSkuInfo.keyword}).then(response=>{
-          this.editSkuInfo.stockList=response.data;
-        });
-        if(row.productAttributeCategoryId!=null){
-          fetchProductAttrList(row.productAttributeCategoryId,{type:0}).then(response=>{
-            this.editSkuInfo.productAttr=response.data.list;
-          });
-        }
-      },
-      handleSearchEditSku(){
-        fetchSkuStockList(this.editSkuInfo.productId,{keyword:this.editSkuInfo.keyword}).then(response=>{
-          this.editSkuInfo.stockList=response.data;
-        });
-      },
-      handleEditSkuConfirm(){
-        if(this.editSkuInfo.stockList==null||this.editSkuInfo.stockList.length<=0){
-          this.$message({
-            message: '暂无sku信息',
-            type: 'warning',
-            duration: 1000
-          });
-          return
-        }
-        this.$confirm('是否要进行修改', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(()=>{
-          updateSkuStockList(this.editSkuInfo.productId,this.editSkuInfo.stockList).then(response=>{
-            this.$message({
-              message: '修改成功',
-              type: 'success',
-              duration: 1000
-            });
-            this.editSkuInfo.dialogVisible=false;
-          });
-        });
-      },
       handleSearchList() {
         this.listQuery.pageNum = 1;
         this.getList();
@@ -548,12 +503,6 @@
       },
       handleShowProduct(index,row){
         console.log("handleShowProduct",row);
-      },
-      handleShowVerifyDetail(index,row){
-        console.log("handleShowVerifyDetail",row);
-      },
-      handleShowLog(index,row){
-        console.log("handleShowLog",row);
       },
       updatePublishStatus(publishStatus, ids) {
         let params = new URLSearchParams();

@@ -131,60 +131,6 @@ export const asyncRouterMap = [
     meta: {title: '营销', icon: 'sms'},
     children: [
       {
-        path: 'flash',
-        name: 'flash',
-        component: () => import('@/views/sms/flash/index'),
-        meta: {title: '秒杀活动列表', icon: 'sms-flash'}
-      },
-      {
-        path: 'flashSession',
-        name: 'flashSession',
-        component: () => import('@/views/sms/flash/sessionList'),
-        meta: {title: '秒杀时间段列表'},
-        hidden:true
-      },
-      {
-        path: 'selectSession',
-        name: 'selectSession',
-        component: () => import('@/views/sms/flash/selectSessionList'),
-        meta: {title: '秒杀时间段选择'},
-        hidden:true
-      },
-      {
-        path: 'flashProductRelation',
-        name: 'flashProductRelation',
-        component: () => import('@/views/sms/flash/productRelationList'),
-        meta: {title: '秒杀汽车列表'},
-        hidden:true
-      },
-      {
-        path: 'coupon',
-        name: 'coupon',
-        component: () => import('@/views/sms/coupon/index'),
-        meta: {title: '优惠券列表', icon: 'sms-coupon'}
-      },
-      {
-        path: 'addCoupon',
-        name: 'addCoupon',
-        component: () => import('@/views/sms/coupon/add'),
-        meta: {title: '添加优惠券'},
-        hidden:true
-      },
-      {
-        path: 'updateCoupon',
-        name: 'updateCoupon',
-        component: () => import('@/views/sms/coupon/update'),
-        meta: {title: '修改优惠券'},
-        hidden:true
-      },
-      {
-        path: 'couponHistory',
-        name: 'couponHistory',
-        component: () => import('@/views/sms/coupon/history'),
-        meta: {title: '优惠券领取详情'},
-        hidden:true
-      },
-      {
         path: 'brand',
         name: 'homeBrand',
         component: () => import('@/views/sms/brand/index'),
@@ -201,12 +147,6 @@ export const asyncRouterMap = [
         name: 'homeHot',
         component: () => import('@/views/sms/hot/index'),
         meta: {title: '人气推荐', icon: 'sms-hot'}
-      },
-      {
-        path: 'subject',
-        name: 'homeSubject',
-        component: () => import('@/views/sms/subject/index'),
-        meta: {title: '专题推荐', icon: 'sms-subject'}
       },
       {
         path: 'advertise',
