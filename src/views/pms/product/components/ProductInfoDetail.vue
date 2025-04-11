@@ -103,8 +103,6 @@
     data() {
       return {
         hasEditCreated:false,
-        //选中商品分类的值
-        selectProductCateValue: [],
         productCateOptions: [],
         brandOptions: [],
         rules: {
@@ -131,31 +129,8 @@
       }
     },
     watch: {
-      productId:function(newValue){
-        if(!this.isEdit)return;
-        if(this.hasEditCreated)return;
-        if(newValue===undefined||newValue==null||newValue===0)return;
-        this.handleEditCreated();
-      },
-      selectProductCateValue: function (newValue) {
-        if (newValue != null && newValue.length === 2) {
-          this.value.productCategoryId = newValue[1];
-          this.value.productCategoryName= this.getCateNameById(this.value.productCategoryId);
-        } else {
-          this.value.productCategoryId = null;
-          this.value.productCategoryName=null;
-        }
-      }
     },
     methods: {
-      //处理编辑逻辑
-      handleEditCreated(){
-        if(this.value.productCategoryId!=null){
-          this.selectProductCateValue.push(this.value.cateParentId);
-          this.selectProductCateValue.push(this.value.productCategoryId);
-        }
-        this.hasEditCreated=true;
-      },
       getProductCateList() {
         fetchListWithChildren().then(response => {
           let list = response.data;
@@ -173,18 +148,6 @@
             this.brandOptions.push({label: element.name, value: element.id});
           }
         });
-      },
-      getCateNameById(id){
-        let name=null;
-        for(const element of this.productCateOptions) {
-          for (let j = 0; j < element.children.length; j++) {
-            if (element.children[j].value === id) {
-              name = element.children[j].label;
-              return name;
-            }
-          }
-        }
-        return name;
       },
       handleNext(formName){
         this.$refs[formName].validate((valid) => {

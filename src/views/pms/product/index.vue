@@ -124,18 +124,12 @@
             <p>
               <el-button
                 size="mini"
-                @click="handleShowProduct(scope.$index, scope.row)">查看
-              </el-button>
-              <el-button
-                size="mini"
                 @click="handleUpdateProduct(scope.$index, scope.row)">编辑
               </el-button>
-            </p>
-            <p>
               <el-button
-                size="mini"
-                type="danger"
-                @click="handleDelete(scope.$index, scope.row)">删除
+                  size="mini"
+                  type="danger"
+                  @click="handleDelete(scope.$index, scope.row)">删除
               </el-button>
             </p>
           </template>
@@ -174,75 +168,10 @@
         :total="total">
       </el-pagination>
     </div>
-    <el-dialog
-      title="编辑货品信息"
-      :visible.sync="editSkuInfo.dialogVisible"
-      width="40%">
-      <span>商品货号：</span>
-      <span>{{editSkuInfo.productSn}}</span>
-      <el-input placeholder="按sku编号搜索" v-model="editSkuInfo.keyword" size="small" style="width: 50%;margin-left: 20px">
-        <el-button slot="append" icon="el-icon-search" @click="handleSearchEditSku"></el-button>
-      </el-input>
-      <el-table style="width: 100%;margin-top: 20px"
-                :data="editSkuInfo.stockList"
-                border>
-        <el-table-column
-          label="SKU编号"
-          align="center">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.skuCode"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-for="(item,index) in editSkuInfo.productAttr"
-          :label="item.name"
-          :key="item.id"
-          align="center">
-          <template slot-scope="scope">
-            {{getProductSkuSp(scope.row,index)}}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="销售价格"
-          width="80"
-          align="center">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.price"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="商品库存"
-          width="80"
-          align="center">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.stock"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="库存预警值"
-          width="100"
-          align="center">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.lowStock"></el-input>
-          </template>
-        </el-table-column>
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="editSkuInfo.dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleEditSkuConfirm">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 <script>
-  import {
-    fetchList,
-    updateDeleteStatus,
-    updateNewStatus,
-    updateRecommendStatus,
-    updatePublishStatus
-  } from '@/api/product'
-  import {fetchList as fetchProductAttrList} from '@/api/productAttr'
+  import { fetchList, updateDeleteStatus, updateNewStatus, updateRecommendStatus, updatePublishStatus } from '@/api/product'
   import {fetchList as fetchBrandList} from '@/api/brand'
   import {fetchListWithChildren} from '@/api/productCate'
 
@@ -353,14 +282,6 @@
       }
     },
     methods: {
-      getProductSkuSp(row, index) {
-        let spData = JSON.parse(row.spData);
-        if(spData!=null&&index<spData.length){
-          return spData[index].value;
-        }else{
-          return null;
-        }
-      },
       getList() {
         this.listLoading = true;
         fetchList(this.listQuery).then(response => {
@@ -500,9 +421,6 @@
       },
       handleUpdateProduct(index,row){
         this.$router.push({path:'/pms/updateProduct',query:{id:row.id}});
-      },
-      handleShowProduct(index,row){
-        console.log("handleShowProduct",row);
       },
       updatePublishStatus(publishStatus, ids) {
         let params = new URLSearchParams();
